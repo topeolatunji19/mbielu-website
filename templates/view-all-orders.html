@@ -1,0 +1,70 @@
+{% include "header.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+
+
+    <div class="container view-orders-page">
+        {% if not orders: %}
+            <div class="empty-order-page">
+                <h1 class="empty-order">You Have No Orders Yet.</h1>
+            </div>
+        {% else: %}
+            {% for order in orders %}
+            <div class="order-page-item">
+                <div class="order-details">
+                    <h5 style="color:#1A1A40">{{ order.user_order }}</h5>
+                    <h5 style="color:#1A1A40">Price: ₦{{ "%0.2f" | format(order.total_cost | float) }}</h5>
+                    <h5 style="color:#51557E">Buyer Name: {{ order.buyer.firstname }} {{ order.buyer.lastname }}</h5>
+                    <h5 style="color:#51557E">Phone: {{ order.buyer.phone }}</h5>
+                    <h5 style="color:#51557E">Email: {{ order.buyer.email }}</h5>
+                    <h5 style="color:#51557E">Order ID: {{ order.order_id }}</h5>
+                    <h6 style="color:brown">Delivery State: {{ order.state }}</h6>
+                    <h6 style="color:brown">Delivery Address: {{ order.address }}</h6>
+                    <h6 style="color:brown">Payment Method: {{ order.payment_method }}</h6>
+                    <h6 style="color:brown">Order Status: </h6><span></span>
+                    {% if order.order_status == "pending": %}
+                        <h6 style="color:orange">{{ order.order_status }}</h6>
+                    {% elif order.order_status == "cancelled": %}
+                        <h6 style="color:red">{{ order.order_status }}</h6>
+                    {% elif order.order_status == "confirmed": %}
+                        <h6 style="color:blue">{{ order.order_status }}</h6>
+                    {% elif order.order_status == "in transit" or order.order_status == "ready for pickup": %}
+                        <h6 style="color:grey">{{ order.order_status }}</h6>
+                    {% elif order.order_status == "delivered": %}
+                        <h6 style="color:green">{{ order.order_status }}</h6>
+                    {% else: %}
+                        <h6 style="color:black">{{ order.order_status }}</h6>
+                    {% endif %}
+                    <br>
+
+                    <form action="{{ url_for('edit_order_status', order_id=order.id)}}" method="post">
+                    <h6>Order Status: <select class="form-group input-small" id="new-status" name="new-status" style="padding-bottom: 0px; width: 200px;">
+                        <option value="pending">pending</option>
+                        <option value="confirmed">confirmed</option>
+                        <option value="in transit">in transit</option>
+                        <option value="ready for pickup">ready for pickup</option>
+                        <option value="delivered">delivered</option>
+                        <option value="cancelled">cancelled</option>
+                    </select>
+                    </h6>
+                    <button type="submit" class="btn btn-dark">Edit Status</button>
+                    </form>
+
+<!--                    <a type="button" class="btn btn-dark" href="{{ url_for('cancel_order', order_id=order.id)}}">Cancel Order</a>-->
+                    <br>
+
+                    <hr>
+                </div>
+            </div>
+            {% endfor %}
+
+        {% endif %}
+    </div>
+
+
+
+
+
+{% include "footer.html" %}
+{% endblock %}

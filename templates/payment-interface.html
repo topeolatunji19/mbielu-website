@@ -1,0 +1,17 @@
+<form method="POST" action="https://checkout.flutterwave.com/v3/hosted/pay">
+  <div>
+    Your order is ₦{{ cost }}
+  </div>
+  <input type="hidden" name="public_key" value="FLWPUBK_TEST-beaac3ccdf0373167699591ad9ef43cc-X" />
+  <input type="hidden" name="customer[email]" value="{{ user.email }}" />
+  <input type="hidden" name="customer[name]" value="{{ user.name }}" />
+  <input type="hidden" name="customer[phone_number]" value="{{ user.phone }}" />
+  <input type="hidden" name="customizations[title]" value="Mbielu Website" />
+  <input type="hidden" name="customizations[description]" value="Payment for Order" />
+  <input type="hidden" name="tx_ref" value="{{ tx_ref }}" />
+  <input type="hidden" name="amount" value="{{cost}}" />
+  <input type="hidden" name="currency" value="NGN" />
+  <input type="hidden" name="meta[token]" value="54" />
+  <input type="hidden" name="redirect_url" value="http://localhost:5000{{ url_for('confirmation')}}" />
+  <button type="submit" id="start-payment-button">Pay Now</button>
+</form>

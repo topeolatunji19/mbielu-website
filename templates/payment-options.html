@@ -1,0 +1,69 @@
+{% include "header.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block content %}
+  <!-- Post Content -->
+    {% set final_price = namespace(value=0) %}
+    <div class="container show-cart-page payment-method-page">
+        {% if not items: %}
+            <div class="empty-cart-page">
+                <h1 class="empty-cart">Your Cart is Empty</h1>
+            </div>
+        {% else: %}
+            {% for item in items %}
+            <div class="cart-page-item">
+                <img class="cart-img" src={{item.cart_item.img_url}} width="100" height="100">
+                <div class="cart-details">
+                    <h5>{{ item.cart_item.name }}</h5>
+                    <h6>Unit Price: ₦{{ "%0.2f" | format(item.cart_item.price | float) }}</h6>
+                    <br>
+
+                    <h6>X {{ item.quantity }}</h6>
+
+                    <br>
+                    {% set unit_price = item.cart_item.price %}
+                    {% set quantity = item.quantity %}
+                    {% set sub_total = unit_price * quantity %}
+                    <h6>Total = ₦{{ "%0.2f" | format(unit_price * quantity | float) }}</h6>
+<!--                    <h6>Total = ₦{{ unit_price * quantity }}</h6>-->
+                    {% set final_price.value = final_price.value + sub_total %}
+                    <hr>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="text-right payment-page-footer">
+                <h6>Total: ₦{{ "%0.2f" | format(final_price.value | float) }}</h6>
+                <br>
+            </div>
+        {% endif %}
+        <div class="payment-page-footer">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                {% for message in messages %}
+                    <p style="color:red;">{{ message }}</p>
+                {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <form action="" method="post">
+            {{ form.csrf_token() }}
+
+            {{ form.payment_method.label }}
+            {{ form.payment_method }}
+
+            {{ form.total_cost(value=final_price.value) }}
+
+            {{ form.confirm(novalidate=True, button_map={"submit": "dark"}) }}
+
+            </form>
+
+<!--            {{ wtf.quick_form(form, novalidate=True, button_map={"submit": "dark"}) }}-->
+        </div>
+    </div>
+<!--    <form action="" method="post">-->
+<!--         <input type="hidden" id="total_cost" name="total_cost" value="{{final_price.value}}">-->
+<!--    </form>-->
+
+
+{% include "footer.html" %}
+{% endblock %}

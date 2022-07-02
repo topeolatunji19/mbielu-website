@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Fembs Investment Limited</title>
+        <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,400i,700,900&display=swap" rel="stylesheet">
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='img/favicon.ico') }}" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{{ url_for('static', filename='css/styles.css')}}" rel="stylesheet">
+    </head>
+    <body>
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="{{ url_for('home')}}">Fembs Investment Limited</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                        <li class="nav-item"><a class="nav-link active" aria-current="page" href="{{ url_for('home')}}">Home</a></li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="{{ url_for('home')}}">All Products</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="{{ url_for('shop_new_arrivals')}}">New Arrivals</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('shop_on_sale')}}">On Sale</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('shop_computers')}}">Computers</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('shop_stationery')}}">Stationery</a></li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link-secondary dropdown-toggle" id="categoryDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Computer & Paper Accessories</a>
+                                    <ul class="dropdown-menu dropdown-submenu" aria-labelledby="categoryDropdown">
+                                        <li><a class="dropdown-item" href="{{ url_for('shop_printers')}}">Printers</a></li>
+                                        <li><a class="dropdown-item" href="{{ url_for('shop_printer_supplies')}}">Printer Supplies</a></li>
+                                        <li><a class="dropdown-item" href="{{ url_for('shop_shredders')}}">Paper Shredders</a></li>
+                                        <li><a class="dropdown-item" href="{{ url_for('shop_document_folders')}}">Document Folders</a></li>
+                                        <li><a class="dropdown-item" href="{{ url_for('shop_document_bags')}}">Document Bags</a></li>
+                                        <li><a class="dropdown-item" href="{{ url_for('shop_envelopes')}}">Envelopes</a></li>
+                                    </ul>
+                                </li>
+                                <li><a class="dropdown-item" href="{{ url_for('shop_safes')}}">Safes</a></li>
+<!--                                <li><a class="dropdown-item" href="#!">On Sale!</a></li>-->
+<!--                                {% for category in categories %}-->
+<!--                                <li><a class="dropdown-item" href="#!">{{ category }}</a></li>-->
+<!--                                {% endfor %}-->
+                            </ul>
+                        </li>
+                        {% if not logged_in: %}
+                            <li class="nav-item"><a class = "nav-link" href="{{ url_for('login')}}">Login</a></li>
+                            <li class="nav-item"><a class = "nav-link" href="{{ url_for('register_email')}}">Register</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class = "nav-link" href="{{ url_for('logout')}}">Log Out</a></li>
+                        {% if current_user.id == 1: %}
+                            <li class="nav-item"><a class = "nav-link" href="{{ url_for('add_new_item')}}">Add to Inventory</a></li>
+                        {% endif %}
+                        {% endif %}
+                    </ul>
+
+                    {% if logged_in: %}
+                    <form class="d-flex top-right-icons" action="{{ url_for('view_cart')}}">
+                        <button class="btn btn-outline-dark" type="submit">
+                            <i class="bi-cart-fill me-1"></i>
+                            Cart
+                            <span class="badge bg-dark text-white ms-1 rounded-pill">{{ no_of_cart_items }}</span>
+                        </button>
+                    </form>
+                    <form class="d-flex top-right-icons" action="{{ url_for('view_profile')}}">
+                        <button class="btn btn-dark" type="submit">
+                            {{ current_user.firstname }}
+                        </button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </nav>
