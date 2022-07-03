@@ -7,7 +7,7 @@ from sqlalchemy.orm import relationship
 from flask_login import UserMixin, login_user, LoginManager, login_required, current_user, logout_user
 from forms import AddItem, RegisterForm, LoginForm, CartForm, UpdateProfileForm, PaymentMethod, ForgotPasswordForm, \
     GetOtpForm, ResetPasswordForm, RegisterEmailForm
-from sqlalchemy import Table, Column, Integer, String, Text, create_engine, ForeignKey, Float, Boolean, desc
+from sqlalchemy import Table, Column, Integer, String, Text, create_engine, ForeignKey, Float, desc
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 from functools import wraps
@@ -18,22 +18,23 @@ from random import randint
 import boto3
 from botocore.exceptions import ClientError
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
-Bootstrap(app)
+application = Flask(__name__)
+application.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
+Bootstrap(application)
 
+test_db = os.environ.get("TEST_DB")
 DATABASE_URI = os.environ.get("DATABASE_URI")
-app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
-print(app.config['SQLALCHEMY_DATABASE_URI'])
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-db = SQLAlchemy(app)
+application.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
+# print(application.config['SQLALCHEMY_DATABASE_URI'])
+application.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+db = SQLAlchemy(application)
 
 Base = declarative_base()
 
 login_manager = LoginManager()
-login_manager.init_app(app)
+login_manager.init_app(application)
 
-gravatar = Gravatar(app,
+gravatar = Gravatar(application,
                     size=100,
                     rating='g',
                     default='retro',
@@ -148,7 +149,7 @@ class ForgotUsers(Base):
 
 engine = create_engine(DATABASE_URI)
 
-Base.metadata.create_all(engine)
+# Base.metadata.create_all(engine)
 
 
 def number_of_cart_items(user_id):
@@ -157,7 +158,7 @@ def number_of_cart_items(user_id):
         return cart_rows
 
 
-@app.route("/")
+@application.route("/")
 def home():
     with Session(engine) as session:
         items = session.query(Catalog).filter_by(activated="yes_option").order_by(desc(Catalog.id)).all()
@@ -170,7 +171,7 @@ def home():
                            header_text="Fembs Investment Limited")
 
 
-@app.route("/stationery")
+@application.route("/stationery")
 def shop_stationery():
     with Session(engine) as session:
         items = session.query(Catalog).filter_by(category="Stationery").order_by(desc(Catalog.id)).all()
@@ -183,7 +184,7 @@ def shop_stationery():
                            header_text="Stationery")
 
 
-@app.route("/computers")
+@application.route("/computers")
 def shop_computers():
     with Session(engine) as session:
         items = session.query(Catalog).filter_by(category="Computers").order_by(desc(Catalog.id)).all()
@@ -195,7 +196,7 @@ def shop_computers():
                            no_of_cart_items=cart_items, header_text="Computers")
 
 
-@app.route("/safes")
+@application.route("/safes")
 def shop_safes():
     with Session(engine) as session:
         items = session.query(Catalog).filter_by(category="Safes").order_by(desc(Catalog.id)).all()
@@ -207,7 +208,7 @@ def shop_safes():
                            no_of_cart_items=cart_items, header_text="Safes")
 
 
-@app.route("/printers")
+@application.route("/printers")
 def shop_printers():
     with Session(engine) as session:
         items = session.query(Catalog).filter_by(category="Printers").order_by(desc(Catalog.id)).all()
@@ -219,7 +220,7 @@ def shop_printers():
                            no_of_cart_items=cart_items, header_text="Printers")
 
 
-@app.route("/shredders")
+@application.route("/shredders")
 def shop_shredders():
     with Session(engine) as session:
         items = session.query(Catalog).filter_by(category="Shredders").order_by(desc(Catalog.id)).all()
@@ -232,7 +233,7 @@ def shop_shredders():
                            header_text="Paper Shredders")
 
 
-@app.route("/printer-supplies")
+@application.route("/printer-supplies")
 def shop_printer_supplies():
     with Session(engine) as session:
         items = session.query(Catalog).filter_by(category="Printer Supplies").order_by(desc(Catalog.id)).all()
@@ -245,7 +246,7 @@ def shop_printer_supplies():
                            header_text="Printer Supplies")
 
 
-@app.route("/document-folders")
+@application.route("/document-folders")
 def shop_document_folders():
     with Session(engine) as session:
         items = session.query(Catalog).filter_by(category="Document Folders").order_by(desc(Catalog.id)).all()
@@ -258,7 +259,7 @@ def shop_document_folders():
                            header_text="Document Folders")
 
 
-@app.route("/document-bags")
+@application.route("/document-bags")
 def shop_document_bags():
     with Session(engine) as session:
         items = session.query(Catalog).filter_by(category="Document Bags").order_by(desc(Catalog.id)).all()
@@ -271,7 +272,7 @@ def shop_document_bags():
                            header_text="Document Bags")
 
 
-@app.route("/envelopes")
+@application.route("/envelopes")
 def shop_envelopes():
     with Session(engine) as session:
         items = session.query(Catalog).filter_by(category="Envelopes").order_by(desc(Catalog.id)).all()
@@ -283,7 +284,7 @@ def shop_envelopes():
                            no_of_cart_items=cart_items, header_text="Envelopes")
 
 
-@app.route("/new-arrivals")
+@application.route("/new-arrivals")
 def shop_new_arrivals():
     with Session(engine) as session:
         items = session.query(Catalog).filter_by(new_arrival="yes_option").order_by(desc(Catalog.id)).all()
@@ -296,7 +297,7 @@ def shop_new_arrivals():
                            header_text="New Arrivals!")
 
 
-@app.route("/on-sale")
+@application.route("/on-sale")
 def shop_on_sale():
     with Session(engine) as session:
         items = session.query(Catalog).filter_by(on_sale="Yes").order_by(desc(Catalog.id)).all()
@@ -309,7 +310,7 @@ def shop_on_sale():
                            header_text="On Sale!")
 
 
-@app.route("/register-email", methods=["GET", "POST"])
+@application.route("/register-email", methods=["GET", "POST"])
 def register_email():
     form = RegisterEmailForm()
     if form.validate_on_submit():
@@ -402,7 +403,7 @@ def register_email():
     return render_template("new-user.html", form=form)
 
 
-@app.route('/register', methods=["GET", "POST"])
+@application.route('/register', methods=["GET", "POST"])
 def register():
     email = request.args.get('email')
     form = RegisterForm(email=email)
@@ -516,7 +517,7 @@ def register():
     return render_template("register.html", form=form)
 
 
-@app.route('/login', methods=["GET", "POST"])
+@application.route('/login', methods=["GET", "POST"])
 def login():
     form = LoginForm()
     if form.validate_on_submit():
@@ -537,13 +538,13 @@ def login():
     return render_template("login.html", form=form, current_user=current_user)
 
 
-@app.route('/logout')
+@application.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('home'))
 
 
-@app.route('/my-profile')
+@application.route('/my-profile')
 def view_profile():
     if current_user.is_authenticated:
         cart_items = number_of_cart_items(current_user.id)
@@ -553,7 +554,7 @@ def view_profile():
                            no_of_cart_items=cart_items)
 
 
-@app.route('/payment-options', methods=["GET", "POST"])
+@application.route('/payment-options', methods=["GET", "POST"])
 def payment_options():
     with Session(engine) as session:
         form = PaymentMethod()
@@ -631,7 +632,7 @@ def payment_options():
                                logged_in=current_user.is_authenticated, no_of_cart_items=cart_items)
 
 
-@app.route("/my-orders")
+@application.route("/my-orders")
 def view_orders():
     with Session(engine) as session:
         personal_orders = session.query(Orders).filter_by(buyer_id=current_user.id).all()
@@ -643,7 +644,7 @@ def view_orders():
                                logged_in=current_user.is_authenticated, no_of_cart_items=cart_items)
 
 
-@app.route("/all-orders")
+@application.route("/all-orders")
 @admin_only
 def view_all_orders():
     with Session(engine) as session:
@@ -656,7 +657,7 @@ def view_all_orders():
                                logged_in=current_user.is_authenticated, no_of_cart_items=cart_items)
 
 
-@app.route("/edit_order_status/<int:order_id>", methods=["POST"])
+@application.route("/edit_order_status/<int:order_id>", methods=["POST"])
 @admin_only
 def edit_order_status(order_id):
     if request.method == "POST":
@@ -668,7 +669,7 @@ def edit_order_status(order_id):
         return redirect(request.referrer)
 
 
-@app.route("/cancel_order/<int:order_id>")
+@application.route("/cancel_order/<int:order_id>")
 def cancel_order(order_id):
     with Session(engine) as session:
         requested_order = session.query(Orders).get(order_id)
@@ -677,7 +678,7 @@ def cancel_order(order_id):
         return redirect(request.referrer)
 
 
-@app.route("/edit-profile", methods=["GET", "POST"])
+@application.route("/edit-profile", methods=["GET", "POST"])
 def edit_profile():
     with Session(engine) as session:
         user = session.query(User).get(current_user.id)
@@ -715,7 +716,7 @@ def edit_profile():
     return render_template("register.html", form=update_form, logged_in=current_user.is_authenticated)
 
 
-@app.route("/new-item", methods=["GET", "POST"])
+@application.route("/new-item", methods=["GET", "POST"])
 @admin_only
 def add_new_item():
     form = AddItem()
@@ -762,7 +763,7 @@ def add_new_item():
     return render_template("add-item.html", form=form, logged_in=current_user.is_authenticated)
 
 
-@app.route("/edit-item/<int:item_id>", methods=["GET", "POST"])
+@application.route("/edit-item/<int:item_id>", methods=["GET", "POST"])
 @admin_only
 def edit_item(item_id):
     with Session(engine) as session:
@@ -822,7 +823,7 @@ def edit_item(item_id):
     return render_template("add-item.html", form=edit_form, logged_in=current_user.is_authenticated)
 
 
-@app.route("/item/<int:item_id>", methods=["GET", "POST"])
+@application.route("/item/<int:item_id>", methods=["GET", "POST"])
 def show_item(item_id):
     with Session(engine) as session:
         form = CartForm()
@@ -855,7 +856,7 @@ def show_item(item_id):
                                similar_items=similar_items)
 
 
-@app.route("/view-cart")
+@application.route("/view-cart")
 def view_cart():
     with Session(engine) as session:
         requested_items = session.query(CartItems).filter_by(buyer_id=current_user.id).all()
@@ -867,7 +868,7 @@ def view_cart():
                                logged_in=current_user.is_authenticated, no_of_cart_items=cart_items)
 
 
-@app.route("/edit-cart/<int:item_id>", methods=["POST"])
+@application.route("/edit-cart/<int:item_id>", methods=["POST"])
 def edit_cart(item_id):
     if request.method == "POST":
         new_quantity = request.form["quantity"]
@@ -878,7 +879,7 @@ def edit_cart(item_id):
         return redirect(url_for('view_cart'))
 
 
-@app.route("/remove/<int:item_id>")
+@application.route("/remove/<int:item_id>")
 def remove_item(item_id):
     with Session(engine) as session:
         item_to_remove = session.query(CartItems).get(item_id)
@@ -887,7 +888,7 @@ def remove_item(item_id):
     return redirect(url_for('view_cart'))
 
 
-@app.route("/add-to-cart/<int:item_id>")
+@application.route("/add-to-cart/<int:item_id>")
 def add_to_cart(item_id):
     with Session(engine) as session:
         requested_item = session.query(Catalog).get(item_id)
@@ -905,7 +906,7 @@ def add_to_cart(item_id):
             return redirect(request.referrer)
 
 
-@app.route('/confirmation', methods=["GET", "POST"])
+@application.route('/confirmation', methods=["GET", "POST"])
 def confirmation():
     txn_id = request.args.get('tx_ref')
     if request.args.get('status') == "successful":
@@ -1017,7 +1018,7 @@ def create_timer(email, unid, minutes=30):
         break
 
 
-@app.route('/forgot-password', methods=["GET", "POST"])
+@application.route('/forgot-password', methods=["GET", "POST"])
 def forgot_password():
     form = ForgotPasswordForm()
     if form.validate_on_submit():
@@ -1034,7 +1035,7 @@ def forgot_password():
     return render_template("forgot-password.html", form=form)
 
 
-@app.route('/password-reset', methods=['GET', 'POST'])
+@application.route('/password-reset', methods=['GET', 'POST'])
 def password_reset():
     email = request.args.get('email')
     unid = get_unique_id(email)
@@ -1121,7 +1122,7 @@ def password_reset():
     return render_template("otp-page.html", form=form)
 
 
-@app.route('/password-reset/verify', methods=['GET', 'POST'])
+@application.route('/password-reset/verify', methods=['GET', 'POST'])
 def password_reset_verify():
     form = ResetPasswordForm()
     if form.validate_on_submit():
@@ -1219,5 +1220,5 @@ def password_reset_verify():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5000)
-    # app.run(debug=True)
+    application.run(host='0.0.0.0', port=5000)
+    # application.run(debug=True)
