@@ -581,6 +581,11 @@ def payment_options():
                 state = "F.C.T - Abuja"
                 address = "Our Shop"
                 final_cost = total_cost
+            elif form.payment_method.data == "pay_now_and_pickup":
+                payment_method = "pay_now_and_pickup"
+                state = "F.C.T - Abuja"
+                address = "Our Shop"
+                final_cost = total_cost
             elif form.payment_method.data == "on_delivery":
                 if current_user.address is None:
                     flash("You have not registered an address. Add address below")
@@ -617,7 +622,7 @@ def payment_options():
 
             new_order.order_id = order_id
             session.commit()
-            if form.payment_method.data == "with_card":
+            if form.payment_method.data == "with_card" or form.payment_method.data == "pay_now_and_pickup":
                 return render_template("payment-interface.html", cost=final_cost, user=current_user, tx_ref=txn_ref)
             elif form.payment_method.data == "on_collection" or form.payment_method.data == "on_delivery":
                 return redirect(url_for('confirmation', tx_ref=txn_ref, status="successful"))

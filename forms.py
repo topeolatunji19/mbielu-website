@@ -99,7 +99,8 @@ class CartForm(FlaskForm):
 class PaymentMethod(FlaskForm):
     payment_method = RadioField(label="Select Payment Method", choices=[("on_delivery", "Payment on Delivery"),
                                                                         ("on_collection", "Payment on Collection from the Store"),
-                                                                        ("with_card", "Pay Online with Card")],
+                                                                        ("with_card", "Pay Online with Card"),
+                                                                        ("pay_now_and_pickup", "Pay now to secure order and pick up later")],
                                 default="on_collection")
     # new_inf = IntegerField("Final Cost: ", validators=[DataRequired()])
     total_cost = HiddenField()
