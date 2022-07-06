@@ -19,7 +19,6 @@
                                 <span>₦{{ "%0.2f" | format(item.price | float) }}</span>
                             {% endif %}
                         </div>
-                        <p class="lead">{{ item.description }}</p>
                         <div class="d-flex">
                             <form action="" method="post">
                             {{ form.csrf_token() }}
@@ -46,6 +45,7 @@
 
 <!--                            <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />-->
                         </div>
+                        <p class="lead">{{ item.description }}</p>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                 <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                     {% for similar_item in similar_items if similar_item.id != item.id%}
                     <div class="col mb-5">
-                        <div class="card h-100">
+                        <div class="card card-details h-100">
                             <!-- Product image-->
                             <img class="card-img-top" src="{{similar_item.img_url}}" alt="{{ similar_item.name }}" />
                             <!-- Product details-->
@@ -76,88 +76,11 @@
                                 {% else %}
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto btn-sm" href="{{ url_for('add_to_cart', item_id=similar_item.id)}}">Add to Cart</a></div>
                                 {% endif %}
-                                <div style="margin-top: 5px;" class="text-center"><a class="btn btn-secondary mt-auto btn-sm" href="{{ url_for('show_item', item_id=similar_item.id)}}">View Item</a></div>
+                                <div style="margin-top: 5px;" class="text-center"><a class="btn btn-dark mt-auto btn-sm" href="{{ url_for('show_item', item_id=similar_item.id)}}">View Item</a></div>
                            </div>
                         </div>
                     </div>
                     {% endfor %}
-<!--                    <div class="col mb-5">-->
-<!--                        <div class="card h-100">-->
-<!--                            &lt;!&ndash; Sale badge&ndash;&gt;-->
-<!--                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>-->
-<!--                            &lt;!&ndash; Product image&ndash;&gt;-->
-<!--                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />-->
-<!--                            &lt;!&ndash; Product details&ndash;&gt;-->
-<!--                            <div class="card-body p-4">-->
-<!--                                <div class="text-center">-->
-<!--                                    &lt;!&ndash; Product name&ndash;&gt;-->
-<!--                                    <h5 class="fw-bolder">Special Item</h5>-->
-<!--                                    &lt;!&ndash; Product reviews&ndash;&gt;-->
-<!--                                    <div class="d-flex justify-content-center small text-warning mb-2">-->
-<!--                                        <div class="bi-star-fill"></div>-->
-<!--                                        <div class="bi-star-fill"></div>-->
-<!--                                        <div class="bi-star-fill"></div>-->
-<!--                                        <div class="bi-star-fill"></div>-->
-<!--                                        <div class="bi-star-fill"></div>-->
-<!--                                    </div>-->
-<!--                                    &lt;!&ndash; Product price&ndash;&gt;-->
-<!--                                    <span class="text-muted text-decoration-line-through">$20.00</span>-->
-<!--                                    $18.00-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; Product actions&ndash;&gt;-->
-<!--                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">-->
-<!--                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col mb-5">-->
-<!--                        <div class="card h-100">-->
-<!--                            &lt;!&ndash; Sale badge&ndash;&gt;-->
-<!--                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>-->
-<!--                            &lt;!&ndash; Product image&ndash;&gt;-->
-<!--                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />-->
-<!--                            &lt;!&ndash; Product details&ndash;&gt;-->
-<!--                            <div class="card-body p-4">-->
-<!--                                <div class="text-center">-->
-<!--                                    &lt;!&ndash; Product name&ndash;&gt;-->
-<!--                                    <h5 class="fw-bolder">Sale Item</h5>-->
-<!--                                    &lt;!&ndash; Product price&ndash;&gt;-->
-<!--                                    <span class="text-muted text-decoration-line-through">$50.00</span>-->
-<!--                                    $25.00-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; Product actions&ndash;&gt;-->
-<!--                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">-->
-<!--                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                    <div class="col mb-5">-->
-<!--                        <div class="card h-100">-->
-<!--                            &lt;!&ndash; Product image&ndash;&gt;-->
-<!--                            <img class="card-img-top" src="https://dummyimage.com/450x300/dee2e6/6c757d.jpg" alt="..." />-->
-<!--                            &lt;!&ndash; Product details&ndash;&gt;-->
-<!--                            <div class="card-body p-4">-->
-<!--                                <div class="text-center">-->
-<!--                                    &lt;!&ndash; Product name&ndash;&gt;-->
-<!--                                    <h5 class="fw-bolder">Popular Item</h5>-->
-<!--                                    &lt;!&ndash; Product reviews&ndash;&gt;-->
-<!--                                    <div class="d-flex justify-content-center small text-warning mb-2">-->
-<!--                                        <div class="bi-star-fill"></div>-->
-<!--                                        <div class="bi-star-fill"></div>-->
-<!--                                        <div class="bi-star-fill"></div>-->
-<!--                                        <div class="bi-star-fill"></div>-->
-<!--                                        <div class="bi-star-fill"></div>-->
-<!--                                    </div>-->
-<!--                                    &lt;!&ndash; Product price&ndash;&gt;-->
-<!--                                    $40.00-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                            &lt;!&ndash; Product actions&ndash;&gt;-->
-<!--                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">-->
-<!--                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a></div>-->
-<!--                            </div>-->
                         </div>
                     </div>
                 </div>

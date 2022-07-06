@@ -166,9 +166,10 @@ def home():
             cart_items = number_of_cart_items(current_user.id)
         else:
             cart_items = None
+        category_img = "https://images.unsplash.com/photo-1631173716529-fd1696a807b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8c3RhdGlvbmVyeXxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60"
     return render_template("index.html", all_items=items, logged_in=current_user.is_authenticated,
                            no_of_cart_items=cart_items,
-                           header_text="Fembs Investment Limited")
+                           header_text="Fembs Investment Limited", category_img=category_img)
 
 
 @application.route("/stationery")
@@ -179,9 +180,10 @@ def shop_stationery():
             cart_items = number_of_cart_items(current_user.id)
         else:
             cart_items = None
+        category_img = "https://images.unsplash.com/photo-1456735190827-d1262f71b8a3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8c3RhdGlvbmVyeXxlbnwwfHwwfHw%3D&w=1000&q=80/2046x500"
     return render_template("index.html", all_items=items, logged_in=current_user.is_authenticated,
                            no_of_cart_items=cart_items,
-                           header_text="Stationery")
+                           header_text="Stationery", category_img=category_img)
 
 
 @application.route("/computers")
@@ -192,8 +194,11 @@ def shop_computers():
             cart_items = number_of_cart_items(current_user.id)
         else:
             cart_items = None
+        category_img = "https://www.cnet.com/a/img/resize/749c306c97f14076499981fc018dace33d0e367d/hub/2018/02/13/" \
+                       "517fda12-de2a-4c3f-bee5-05daaf870537/01laptops-with-longest-battery-life-2018-feb.jpg?" \
+                       "auto=webp&width=1200"
     return render_template("index.html", all_items=items, logged_in=current_user.is_authenticated,
-                           no_of_cart_items=cart_items, header_text="Computers")
+                           no_of_cart_items=cart_items, header_text="Computers", category_img=category_img)
 
 
 @application.route("/safes")
@@ -204,8 +209,9 @@ def shop_safes():
             cart_items = number_of_cart_items(current_user.id)
         else:
             cart_items = None
+        category_img = "https://www.rottner-security.co.za/media/rottner-uk/Teasers/teaser_fireproof_safes.jpg"
     return render_template("index.html", all_items=items, logged_in=current_user.is_authenticated,
-                           no_of_cart_items=cart_items, header_text="Safes")
+                           no_of_cart_items=cart_items, header_text="Safes", category_img=category_img)
 
 
 @application.route("/printers")
@@ -216,8 +222,9 @@ def shop_printers():
             cart_items = number_of_cart_items(current_user.id)
         else:
             cart_items = None
+        category_img = "https://i1.adis.ws/i/canon/1_a3_professional_photo_printers_137125259380583?$og-image$"
     return render_template("index.html", all_items=items, logged_in=current_user.is_authenticated,
-                           no_of_cart_items=cart_items, header_text="Printers")
+                           no_of_cart_items=cart_items, header_text="Printers", category_img=category_img)
 
 
 @application.route("/shredders")
@@ -228,9 +235,10 @@ def shop_shredders():
             cart_items = number_of_cart_items(current_user.id)
         else:
             cart_items = None
+        category_img = "https://cdn.mos.cms.futurecdn.net/NX6KqQHBdRVnckkVzTWkzJ.jpeg"
     return render_template("index.html", all_items=items, logged_in=current_user.is_authenticated,
                            no_of_cart_items=cart_items,
-                           header_text="Paper Shredders")
+                           header_text="Paper Shredders", category_img=category_img)
 
 
 @application.route("/printer-supplies")
@@ -241,9 +249,10 @@ def shop_printer_supplies():
             cart_items = number_of_cart_items(current_user.id)
         else:
             cart_items = None
+        category_img = "https://images.unsplash.com/photo-1503694978374-8a2fa686963a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1769&q=80"
     return render_template("index.html", all_items=items, logged_in=current_user.is_authenticated,
                            no_of_cart_items=cart_items,
-                           header_text="Printer Supplies")
+                           header_text="Printer Supplies", category_img=category_img)
 
 
 @application.route("/document-folders")
@@ -254,9 +263,10 @@ def shop_document_folders():
             cart_items = number_of_cart_items(current_user.id)
         else:
             cart_items = None
+        category_img = "https://images.unsplash.com/photo-1584628804572-f84284d9f388?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8N3x8Zm9sZGVyfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=800&q=60"
     return render_template("index.html", all_items=items, logged_in=current_user.is_authenticated,
                            no_of_cart_items=cart_items,
-                           header_text="Document Folders")
+                           header_text="Document Folders", category_img=category_img)
 
 
 @application.route("/document-bags")
@@ -267,9 +277,10 @@ def shop_document_bags():
             cart_items = number_of_cart_items(current_user.id)
         else:
             cart_items = None
+        category_img = "https://images.unsplash.com/photo-1517612228538-cefdbc2c01e7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
     return render_template("index.html", all_items=items, logged_in=current_user.is_authenticated,
                            no_of_cart_items=cart_items,
-                           header_text="Document Bags")
+                           header_text="Document Bags", category_img=category_img)
 
 
 @application.route("/envelopes")
@@ -280,8 +291,9 @@ def shop_envelopes():
             cart_items = number_of_cart_items(current_user.id)
         else:
             cart_items = None
+        category_img = "https://images.unsplash.com/photo-1510070112810-d4e9a46d9e91?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1769&q=80"
     return render_template("index.html", all_items=items, logged_in=current_user.is_authenticated,
-                           no_of_cart_items=cart_items, header_text="Envelopes")
+                           no_of_cart_items=cart_items, header_text="Envelopes", category_img=category_img)
 
 
 @application.route("/new-arrivals")
@@ -292,9 +304,12 @@ def shop_new_arrivals():
             cart_items = number_of_cart_items(current_user.id)
         else:
             cart_items = None
+        category_img = "https://img.freepik.com/free-vector/new-arrival-design_23-2147886979.jpg?" \
+                       "t=st=1657019614~exp=1657020214~hmac=0b43eb885189d41cf2412ffc945beb8ae45e8d32a0a6c6e9" \
+                       "cab48733fa7f21a8&w=1380"
     return render_template("index.html", all_items=items, logged_in=current_user.is_authenticated,
                            no_of_cart_items=cart_items,
-                           header_text="New Arrivals!")
+                           header_text="New Arrivals!", category_img=category_img)
 
 
 @application.route("/on-sale")
@@ -305,9 +320,10 @@ def shop_on_sale():
             cart_items = number_of_cart_items(current_user.id)
         else:
             cart_items = None
+        category_img = "https://images.unsplash.com/photo-1607083206968-13611e3d76db?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1830&q=80"
     return render_template("index.html", all_items=items, logged_in=current_user.is_authenticated,
                            no_of_cart_items=cart_items,
-                           header_text="On Sale!")
+                           header_text="On Sale!", category_img=category_img)
 
 
 @application.route("/register-email", methods=["GET", "POST"])

@@ -4,7 +4,67 @@
 {% include "header.html" %}
 
 <!-- Page Header-->
-    <header class="bg-dark py-5">
+<!--<div id="testimonial-carousel" class="carousel slide" data-bs-ride="false">-->
+<!--    <div class="carousel-inner">-->
+<!--    <div class="carousel-item active">-->
+<!--      <h2>I no longer have to sniff other dogs for love. I've found the hottest Corgi on TinDog. Woof.</h2>-->
+<!--      <img class="testimonial-image" src="images/dog-img.jpg" alt="dog-profile">-->
+<!--      <em>Pebbles, New York</em>-->
+<!--    </div>-->
+<!--    <header class="header-div py-5" style="background-image: url('{{ category_img }}');">-->
+<!--        <div class="container px-4 px-lg-5 my-5">-->
+<!--            <div class="text-center text-white">-->
+<!--                <h1 class="display-4 fw-bolder">{{ header_text }}</h1>-->
+<!--                <p class="lead fw-normal text-white-50 mb-0">Fembs Investment Limited Online Store</p>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </header>-->
+
+{% if header_text == "Fembs Investment Limited": %}
+    <header>
+
+      <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div>
+        <div class="carousel-inner">
+          <div class="carousel-item active" style='background-image: url("https://images.unsplash.com/photo-1510070009289-b5bc34383727?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1769&q=80/1920x1080")'>
+            <div class="text-center text-white carousel-caption header-text d-flex flex-column justify-content-center h-100">
+                <h1 class="display-4 fw-bolder">{{ header_text }}</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Fembs Investment Limited Online Store</p>
+                <div style="margin-top: 5px;" class="text-center"><a class="btn btn-dark mt-auto btn-sm" href="{{ url_for('shop_stationery')}}">Shop Stationery</a></div>
+            </div>
+          </div>
+          <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1625961332771-3f40b0e2bdcf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80/1920x1080')">
+            <div class="text-center text-white carousel-caption header-text d-flex flex-column justify-content-center h-100">
+                <h1 class="display-4 fw-bolder">{{ header_text }}</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Fembs Investment Limited Online Store</p>
+                <div style="margin-top: 5px;" class="text-center"><a class="btn btn-dark mt-auto btn-sm" href="{{ url_for('shop_printers')}}">Printers</a></div>
+            </div>
+          </div>
+          <div class="carousel-item" style="background-image: url('https://images.unsplash.com/photo-1584628804763-8233dfc0996c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80/1920x1080')">
+            <div class="text-center text-white carousel-caption header-text d-flex flex-column justify-content-center h-100">
+                <h1 class="display-4 fw-bolder">{{ header_text }}</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Fembs Investment Limited Online Store</p>
+                <div style="margin-top: 5px;" class="text-center"><a class="btn btn-dark mt-auto btn-sm" href="{{ url_for('shop_stationery')}}">Shop Stationery</a></div>
+
+            </div>
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </header>
+{% else %}
+    <header class="py-5" style="background-image: url('{{ category_img }}')">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
                 <h1 class="display-4 fw-bolder">{{ header_text }}</h1>
@@ -13,6 +73,9 @@
         </div>
     </header>
 
+
+{% endif %}
+
 <!-- Section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 mt-5">
@@ -20,7 +83,7 @@
                     {% for item in all_items if item.quantity > 0 %}
                     {% if item.on_sale == "No": %}
                     <div class="col mb-5">
-                        <div class="card h-100">
+                        <div class="card card-details h-100">
                             <!-- Product image-->
                             <img class="card-img-top" src="{{item.img_url}}" alt="{{ item.name }}" />
                             <!-- Product details-->
@@ -39,13 +102,13 @@
                                 {% else %}
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto btn-sm" href="{{ url_for('add_to_cart', item_id=item.id)}}">Add to Cart</a></div>
                                 {% endif %}
-                                <div style="margin-top: 5px;" class="text-center"><a class="btn btn-secondary mt-auto btn-sm" href="{{ url_for('show_item', item_id=item.id)}}">View Item</a></div>
+                                <div style="margin-top: 5px;" class="text-center"><a class="btn btn-dark mt-auto btn-sm" href="{{ url_for('show_item', item_id=item.id)}}">View Item</a></div>
                             </div>
                         </div>
                     </div>
                     {% elif item.on_sale == "Yes": %}
                      <div class="col mb-5">
-                        <div class="card h-100">
+                        <div class="card card-details h-100">
                             <!-- Sale badge-->
                             <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
                             <!-- Product image-->
@@ -67,7 +130,7 @@
                                 {% else %}
                                 <div class="text-center"><a class="btn btn-outline-dark mt-auto btn-sm" href="{{ url_for('add_to_cart', item_id=item.id)}}">Add to Cart</a></div>
                                 {% endif %}
-                                <div style="margin-top: 5px;" class="text-center"><a class="btn btn-secondary mt-auto btn-sm" href="{{ url_for('show_item', item_id=item.id)}}">View Item</a></div>
+                                <div style="margin-top: 5px;" class="text-center"><a class="btn btn-dark mt-auto btn-sm" href="{{ url_for('show_item', item_id=item.id)}}">View Item</a></div>
                             </div>
                         </div>
                     </div>
