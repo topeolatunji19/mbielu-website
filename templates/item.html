@@ -13,10 +13,10 @@
                         <h1 class="display-5 fw-bolder">{{ item.name }}</h1>
                         <div class="fs-5 mb-5">
                             {% if item.on_sale == "Yes": %}
-                                <span class="text-muted text-decoration-line-through">₦{{ "%0.2f" | format(item.old_price | float) }}</span>
-                                <span>₦{{ "%0.2f" | format(item.price | float) }}</span>
+                                <span class="text-muted text-decoration-line-through">₦{{ "{:,.2f}".format(item.old_price) }}</span>
+                                <span>₦{{ "{:,.2f}".format(item.price) }}</span>
                             {% elif item.on_sale == "No": %}
-                                <span>₦{{ "%0.2f" | format(item.price | float) }}</span>
+                                <span>₦{{ "{:,.2f}".format(item.price) }}</span>
                             {% endif %}
                         </div>
                         <div class="d-flex">
@@ -66,7 +66,7 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">{{ similar_item.name }}</h5>
                                     <!-- Product price-->
-                                    ₦{{ "%0.2f" | format(similar_item.price | float) }}
+                                    ₦{{ "{:,.2f}".format(similar_item.price) }}
                                 </div>
                             </div>
                             <!-- Product actions-->

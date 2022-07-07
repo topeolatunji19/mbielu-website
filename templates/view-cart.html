@@ -15,7 +15,7 @@
                 <img class="cart-img" src={{item.cart_item.img_url}} width="125" height="125">
                 <div class="cart-details">
                     <h5>{{ item.cart_item.name }}</h5>
-                    <h6>Unit Price: ₦{{ "%0.2f" | format(item.cart_item.price | float) }}</h6>
+                    <h6>Unit Price: ₦{{ "{:,.2f}".format(item.cart_item.price) }}</h6>
                     <br>
 
                     <form action="{{ url_for('edit_cart', item_id=item.id)}}" method="post">
@@ -27,7 +27,7 @@
                     {% set unit_price = item.cart_item.price %}
                     {% set quantity = item.quantity %}
                     {% set sub_total = unit_price * quantity %}
-                    <h6>Total = ₦{{ "%0.2f" | format(unit_price * quantity | float) }}</h6>
+                    <h6>Total = ₦{{ "{:,.2f}".format(unit_price * quantity) }}</h6>
 <!--                    <h6>Total = ₦{{ unit_price * quantity }}</h6>-->
                     {% set final_price.value = final_price.value + sub_total %}
                     <h6><a class="remove-item" href="{{url_for('remove_item', item_id=item.id) }}">Remove Item</a></h6>
@@ -36,7 +36,7 @@
             </div>
             {% endfor %}
             <div class="text-right">
-                <h4>Total: ₦{{ "%0.2f" | format(final_price.value | float) }}</h4>
+                <h4>Total: ₦{{ "{:,.2f}".format(final_price.value) }}</h4>
                 <br>
                 <a href="{{ url_for('payment_options') }}"><button type="button" class="btn btn-dark btn-lg">Proceed to Checkout</button></a>
 

@@ -92,7 +92,7 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">{{ item.name }}</h5>
                                     <!-- Product price-->
-                                    ₦{{ "%0.2f" | format(item.price | float) }}
+                                    ₦{{ "{:,.2f}".format(item.price) }}
                                 </div>
                             </div>
                             <!-- Product actions-->
@@ -119,8 +119,8 @@
                                     <!-- Product name-->
                                     <h5 class="fw-bolder">{{ item.name }}</h5>
                                     <!-- Product price-->
-                                    <span class="text-muted text-decoration-line-through">₦{{ "%0.2f" | format(item.old_price | float) }}</span>
-                                    ₦{{ "%0.2f" | format(item.price | float) }}
+                                    <span class="text-muted text-decoration-line-through">₦{{ "{:,.2f}".format(item.old_price) }}</span>
+                                    ₦{{ "{:,.2f}".format(item.price) }}
                                 </div>
                             </div>
                             <!-- Product actions-->

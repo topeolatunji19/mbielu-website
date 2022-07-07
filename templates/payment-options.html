@@ -15,7 +15,7 @@
                 <img class="cart-img" src={{item.cart_item.img_url}} width="100" height="100">
                 <div class="cart-details">
                     <h5>{{ item.cart_item.name }}</h5>
-                    <h6>Unit Price: ₦{{ "%0.2f" | format(item.cart_item.price | float) }}</h6>
+                    <h6>Unit Price: ₦{{ "{:,.2f}".format(item.cart_item.price) }}</h6>
                     <br>
 
                     <h6>X {{ item.quantity }}</h6>
@@ -24,7 +24,7 @@
                     {% set unit_price = item.cart_item.price %}
                     {% set quantity = item.quantity %}
                     {% set sub_total = unit_price * quantity %}
-                    <h6>Total = ₦{{ "%0.2f" | format(unit_price * quantity | float) }}</h6>
+                    <h6>Total = ₦{{ "{:,.2f}".format(unit_price * quantity) }}</h6>
 <!--                    <h6>Total = ₦{{ unit_price * quantity }}</h6>-->
                     {% set final_price.value = final_price.value + sub_total %}
                     <hr>
@@ -32,7 +32,7 @@
             </div>
             {% endfor %}
             <div class="text-right payment-page-footer">
-                <h6>Total: ₦{{ "%0.2f" | format(final_price.value | float) }}</h6>
+                <h6>Total: ₦{{ "{:,.2f}".format(final_price.value) }}</h6>
                 <br>
             </div>
         {% endif %}

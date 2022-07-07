@@ -14,8 +14,8 @@
             <div class="order-page-item">
                 <div class="order-details">
                     <h5 style="color:#1A1A40">{{ order.user_order }}</h5>
-                    <h5 style="color:#1A1A40">Price: ₦{{ "%0.2f" | format(order.total_cost | float) }}</h5>
-                    <h5 style="color:#51557E">Buyer Name: {{ order.buyer.firstname }} {{ order.buyer.lastname }}</h5>
+                    <h5 style="color:#1A1A40">Price: ₦{{ "{:,.2f}".format(order.total_cost) }}</h5>
+                    <h5 style="color:#51557E">Name: {{ order.buyer.firstname }} {{ order.buyer.lastname }}</h5>
                     <h5 style="color:#51557E">Phone: {{ order.buyer.phone }}</h5>
                     <h5 style="color:#51557E">Email: {{ order.buyer.email }}</h5>
                     <h5 style="color:#51557E">Order ID: {{ order.order_id }}</h5>

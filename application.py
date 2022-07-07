@@ -651,7 +651,7 @@ def payment_options():
 @application.route("/my-orders")
 def view_orders():
     with Session(engine) as session:
-        personal_orders = session.query(Orders).filter_by(buyer_id=current_user.id).all()
+        personal_orders = session.query(Orders).filter_by(buyer_id=current_user.id).order_by(desc(Orders.id)).all()
         if current_user.is_authenticated:
             cart_items = number_of_cart_items(current_user.id)
         else:
@@ -664,7 +664,7 @@ def view_orders():
 @admin_only
 def view_all_orders():
     with Session(engine) as session:
-        all_orders = session.query(Orders).all()
+        all_orders = session.query(Orders).order_by(desc(Orders.id)).all()
         if current_user.is_authenticated:
             cart_items = number_of_cart_items(current_user.id)
         else:

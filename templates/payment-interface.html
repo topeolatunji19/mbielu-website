@@ -1,6 +1,6 @@
 <form method="POST" action="https://checkout.flutterwave.com/v3/hosted/pay">
   <div>
-    Your order is ₦{{ cost }}
+    Your order is ₦{{ "{:,.2f}".format(cost) }}
   </div>
   <input type="hidden" name="public_key" value="FLWPUBK_TEST-beaac3ccdf0373167699591ad9ef43cc-X" />
   <input type="hidden" name="customer[email]" value="{{ user.email }}" />
