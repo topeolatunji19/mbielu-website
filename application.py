@@ -22,7 +22,7 @@ application = Flask(__name__)
 application.config['SECRET_KEY'] = os.environ.get('SECRET_KEY')
 Bootstrap(application)
 
-test_db = os.environ.get("TEST_DB")
+# test_db = os.environ.get("TEST_DB")
 DATABASE_URI = os.environ.get("DATABASE_URI")
 application.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 # print(application.config['SQLALCHEMY_DATABASE_URI'])
@@ -347,7 +347,7 @@ def register_email():
                 )
                 session.add(new_forgotten_user)
                 session.commit()
-                SENDER = "Fembs Investment Ltd. <tunjipy@gmail.com>"
+                SENDER = "Fembs Investment Ltd. <fmbielu4@gmail.com>"
                 RECIPIENT = email
                 # CONFIGURATION_SET = "ConfigSet"
                 AWS_REGION = "us-east-1"
@@ -463,7 +463,7 @@ def register():
                 session.add(new_user)
                 session.commit()
                 login_user(new_user)
-                SENDER = "Fembs Investment Ltd. <tunjipy@gmail.com>"
+                SENDER = "Fembs Investment Ltd. <fmbielu4@gmail.com>"
                 RECIPIENT = email
                 # CONFIGURATION_SET = "ConfigSet"
                 AWS_REGION = "us-east-1"
@@ -932,7 +932,7 @@ def confirmation():
             for item in cart_items:
                 session.delete(item)
             session.commit()
-            SENDER = "Fembs Investment Ltd. <tunjipy@gmail.com>"
+            SENDER = "Fembs Investment Ltd. <fmbielu4@gmail.com>"
             RECIPIENT = current_user.email
             # CONFIGURATION_SET = "ConfigSet"
             AWS_REGION = "us-east-1"
@@ -1165,7 +1165,7 @@ def password_reset_verify():
                 user_data.password = generate_password_hash(new_password, method="pbkdf2:sha256", salt_length=8)
                 session.commit()
 
-                SENDER = "Fembs Investment Ltd. <tunjipy@gmail.com>"
+                SENDER = "Fembs Investment Ltd. <fmbielu4@gmail.com>"
                 RECIPIENT = user_email
                 # CONFIGURATION_SET = "ConfigSet"
                 AWS_REGION = "us-east-1"
