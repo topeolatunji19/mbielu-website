@@ -71,7 +71,7 @@ class RegisterForm(FlaskForm):
     phone = StringField("Phone Number", validators=[DataRequired()])
     password = PasswordField("Password", validators=[DataRequired()])
     confirm_password = PasswordField("Confirm Password", validators=[DataRequired()])
-    otp = StringField("OTP", validators=[DataRequired()])
+    # otp = StringField("OTP", validators=[DataRequired()])
     submit = SubmitField("SIGN UP!")
 
 

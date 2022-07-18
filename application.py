@@ -421,24 +421,24 @@ def register_email():
 
 @application.route('/register', methods=["GET", "POST"])
 def register():
-    email = request.args.get('email')
-    form = RegisterForm(email=email)
+    # email = request.args.get('email')
+    form = RegisterForm()
     if form.validate_on_submit():
         with Session(engine) as session:
-            user_email = email
+            user_email = form.email.data
             user_firstname = form.firstname.data
             user_lastname = form.lastname.data
             user_phone = form.phone.data
             user_password = generate_password_hash(form.password.data, method="pbkdf2:sha256", salt_length=8)
             initial_password = form.password.data
             confirm_password = form.confirm_password.data
-            user_otp = form.otp.data
+            # user_otp = form.otp.data
             check_email = session.query(User).filter_by(email=user_email).first()
             check_phone = session.query(User).filter_by(phone=user_phone).first()
-            forgot_user_data = session.query(ForgotUsers).filter_by(email=user_email).first()
-            if not forgot_user_data:
-                flash("Session expired. Start the process again to get a new OTP")
-            elif check_email:
+            # forgot_user_data = session.query(ForgotUsers).filter_by(email=user_email).first()
+            # if not forgot_user_data:
+            #     flash("Session expired. Start the process again to get a new OTP")
+            if check_email:
                 flash("This email already exists. Log in Instead.")
                 return redirect(url_for('login'))
             elif len(user_phone) != 11:
@@ -448,8 +448,8 @@ def register():
             # elif not check_password(new_password): #check_password verify password meet requirements
             #     flash("Password too weak")
 
-            elif user_otp != forgot_user_data.otp:
-                flash("Wrong OTP")
+            # elif user_otp != forgot_user_data.otp:
+            #     flash("Wrong OTP")
             elif initial_password != confirm_password:
                 flash("Both passwords have to match")
             else:
@@ -464,7 +464,7 @@ def register():
                 session.commit()
                 login_user(new_user)
                 SENDER = "Fembs Investment Ltd. <fmbielu4@gmail.com>"
-                RECIPIENT = email
+                RECIPIENT = user_email
                 # CONFIGURATION_SET = "ConfigSet"
                 AWS_REGION = "us-east-1"
                 # The subject line for the email.
